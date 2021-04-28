@@ -21,6 +21,7 @@ class Game:
         self.winner = []
         self.gamerow = pd.DataFrame()
 
+
         #set Teamsize and check if Teams have equal number of players
         noTeams=False
         for i in teams:
@@ -47,16 +48,31 @@ class Game:
         self.duration = self.eTime - self.sTime
 
 #function to end game and set winning teams
+#create row as series, store it in selfe and return a copy
     def endGame(self, winningTeam):
-
         try:
             self.winner = self.teams[winningTeam]
             self.setEndTime()
+            row = {'sTime': self.sTime, 'eTime': self.eTime, 'winner': self.winner, 'teams': self.teams}
+            self.series = pd.Series(row)
+
         except IndexError:
             print('sorry, no Team', winningTeam+1)
+
+        return(copy.deepcopy(self.series))
+
+class Match:
+    def __init__(self):
+        self.games = pd.DataFrame()
 
 #start Session add matches, ... testsection
 
 game = Game([['Alex','Joe'],['Jt','Spezi']])
-game.endGame(1)
-game.details()
+game1 = game.endGame(1)
+game2 = game.endGame(0)
+game3 = game.endGame(1)
+
+match = Match()
+
+
+#game.details()
