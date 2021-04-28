@@ -1,6 +1,8 @@
 #python script to save match data
 import datetime
 import time
+from collections import Counter
+import copy
 
 players =['Alex', 'Joe', 'Jt','Spezi']
 
@@ -58,12 +60,13 @@ class Match:
         self.eTime = datetime.datetime.now()
         self.games = []
         self.size = 0
+        self.winner = []
 
     def details(self):
         print('Start', self.sTime, 'End', self.eTime, 'Matches', self.size)
 
     def addGame(self, game):
-        self.games.append(game)
+        self.games.append(copy.deepcopy(game))
         self.size = len(self.games)
 
 
@@ -71,13 +74,28 @@ class Match:
             for i in self.games:
                 i.details()
 
+    def endMatch(self):
+        self.eTime = datetime.datetime.now()
+        wins = []
+        for i in self.games:
+             wins.append(i.winner)
+
+        print(wins)
+        #print('Winners: ', Counter(wins).values())
+
+
+
+
 #start Session add matches, ... testsection
 match = Match()
 game = Game([['Alex','Joe'],['Jt','Spezi']])
 game.setWinner(1)
+match.addGame(game)
+game.setWinner(0)
+match.addGame(game)
+game.setWinner(1)
+match.addGame(game)
+match.endMatch()
 
-for i in range(0,10):
-    match.addGame(game)
-
-match.showGames()
+#match.showGames()
 match.details()
