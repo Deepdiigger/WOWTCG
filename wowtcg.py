@@ -7,7 +7,7 @@ players =['Alex', 'Joe', 'Jt','Spezi']
 
 
 
-class Match:
+class Game:
     def __init__(self, teams):
         self.teams = teams
         self.size = len(teams)
@@ -52,30 +52,32 @@ class Match:
             print('sorry, no Team', winningTeam+1)
 
 
-class Session:
+class Match:
     def __init__(self):
         self.sTime = datetime.datetime.now()
         self.eTime = datetime.datetime.now()
-        self.matches = []
+        self.games = []
         self.size = 0
 
     def details(self):
         print('Start', self.sTime, 'End', self.eTime, 'Matches', self.size)
 
-    def addMatch(self, match):
-        self.matches.append(match)
-        self.size = len(self.matches)
+    def addGame(self, game):
+        self.games.append(game)
+        self.size = len(self.games)
 
 
-    def showMatches(self):
-            for i in self.matches:
+    def showGames(self):
+            for i in self.games:
                 i.details()
-session = Session()
-match = Match([['Alex','Joe'],['Jt','Spezi']])
-match.setWinner(1)
+
+#start Session add matches, ... testsection
+match = Match()
+game = Game([['Alex','Joe'],['Jt','Spezi']])
+game.setWinner(1)
 
 for i in range(0,10):
-    session.addMatch(match)
+    match.addGame(game)
 
-#session.showMatches()
-session.details()
+match.showGames()
+match.details()
