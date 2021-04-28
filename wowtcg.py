@@ -15,6 +15,7 @@ class Match:
         self.sTime = datetime.datetime.now()
         self.eTime = datetime.datetime.now()
         self.duration = 0
+        self.winner = 0
         #check if Teams have equal number of players
         noTeams=False
         for i in teams:
@@ -33,16 +34,29 @@ class Match:
                 print(p, end = ' ')
             print()
 
-        print('Number of teams', self.size,'Teamsize',self.teamSize, 'StartTime', self.sTime, 'EndTime', self.eTime, "Duration", self.duration )
+        print('Number of teams', self.size,'Teamsize',self.teamSize, 'StartTime', self.sTime, 'EndTime', self.eTime, "Duration", self.duration, "Winner", self.winner )
 
 #function to set Endtime and calculate Duration
     def setEndTime(self):
         self.eTime = datetime.datetime.now()
         self.duration = self.eTime - self.sTime
 
+#function to set winning teams
+    def setWinner(self, winningTeam):
+
+        try:
+            winner = self.teams[winningTeam]
+            self.winner = winner
+        except IndexError:
+            print('sorry, no Team', winningTeam+1)
+
+
+
+
+
+
+
+
 match = Match([['Alex','Joe'],['Jt','Spezi']])
-
+match.setWinner(2)
 match.details()
-
-# match1 = Match([['Joe'],['Alex']])
-# match1.details()
