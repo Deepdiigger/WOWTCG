@@ -65,14 +65,26 @@ class Match:
     def __init__(self):
         self.games = pd.DataFrame()
 
+    #add a game to the Match Dataframe
+    def addGame(self, game):
+        self.games = self.games.append(game,ignore_index=True)
+
 #start Session add matches, ... testsection
 
 game = Game([['Alex','Joe'],['Jt','Spezi']])
 game1 = game.endGame(1)
+time.sleep(0.1)
 game2 = game.endGame(0)
+time.sleep(0.1)
 game3 = game.endGame(1)
 
 match = Match()
+match.addGame(game1)
+match.addGame(game2)
+match.addGame(game3)
+print(match.games)
+
+
 
 
 #game.details()
