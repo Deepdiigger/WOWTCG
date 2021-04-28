@@ -19,8 +19,9 @@ class Game:
         self.eTime = datetime.datetime.now()
         self.duration = 0
         self.winner = []
+        self.gamerow = pd.DataFrame()
 
-        #check if Teams have equal number of players
+        #set Teamsize and check if Teams have equal number of players
         noTeams=False
         for i in teams:
             if len(teams[0]) != len(i):
@@ -45,8 +46,8 @@ class Game:
         self.eTime = datetime.datetime.now()
         self.duration = self.eTime - self.sTime
 
-#function to set winning teams
-    def setWinner(self, winningTeam):
+#function to end game and set winning teams
+    def endGame(self, winningTeam):
 
         try:
             self.winner = self.teams[winningTeam]
@@ -54,52 +55,8 @@ class Game:
         except IndexError:
             print('sorry, no Team', winningTeam+1)
 
-
-class Match:
-    def __init__(self):
-        self.sTime = datetime.datetime.now()
-        self.eTime = datetime.datetime.now()
-        self.games = []
-        self.size = 0
-
-
-    def details(self):
-        print('Start', self.sTime, 'End', self.eTime, 'Matches', self.size)
-
-    def addGame(self, game):
-        self.games.append(copy.deepcopy(game))
-        self.size = len(self.games)
-
-
-    def showGames(self):
-            for i in self.games:
-                i.details()
-
-    def endMatch(self):
-        self.eTime = datetime.datetime.now()
-        #add winners
-        #for i in self.games:
-            #i.details()
-
-
-
 #start Session add matches, ... testsection
-match = Match()
+
 game = Game([['Alex','Joe'],['Jt','Spezi']])
-time.sleep(0.1)
-game.setWinner(1)
-match.addGame(game)
-
-time.sleep(0.1)
-game.setWinner(0)
-match.addGame(game)
-
-time.sleep(0.1)
-game.setWinner(1)
-match.addGame(game)
-
-time.sleep(0.1)
-match.endMatch()
-
-#match.showGames()
-match.details()
+game.endGame(1)
+game.details()
