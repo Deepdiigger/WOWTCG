@@ -75,15 +75,24 @@ class Match:
         self.eTime = self.games['eTime'].max()
         self.duration = self.eTime - self.sTime
         self.wins = pd.DataFrame(self.games['winner'].value_counts())
-
         self.winner = self.wins['winner'].idxmax()
+        self.teams = self.wins.index.values
+        self.points = self.wins['winner'].values
 
+        row = {'sTime': self.sTime, 'eTime': self.eTime, 'winner': self.winner, 'Teams': self.teams, 'Points': self.points}
+        self.result = pd.Series(row)
 
+        return(copy.deepcopy(self.result))
 
-        print(self.wins)
-        print(self.winner)
+    def details(self):
+        print(self.result)
 
+class Session:
+    def __init__(self):
+        self.matches = pd.DataFrame()
 
+    def addMatch(self, match):
+        self.matches = self.matches.append(match,ignore_index=True)
 
 #start Session add matches, ... testsection
 
@@ -98,9 +107,12 @@ match = Match()
 match.addGame(game1)
 match.addGame(game2)
 match.addGame(game3)
-print(match.games)
-match.endMatch()
+#print(match.games)
+#print(match.endMatch())
 
-
-
-#game.details()
+session = Session()
+session.addMatch(match.endMatch())
+session.addMatch(match.endMatch())
+session.addMatch(match.endMatch())
+print(session.matches)
+print('matches in Sessions not perfect, add games and so on. Acces a sessio with all games,...')
