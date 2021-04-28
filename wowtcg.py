@@ -47,16 +47,35 @@ class Match:
         try:
             winner = self.teams[winningTeam]
             self.winner = winner
+            self.setEndTime()
         except IndexError:
             print('sorry, no Team', winningTeam+1)
 
 
+class Session:
+    def __init__(self):
+        self.sTime = datetime.datetime.now()
+        self.eTime = datetime.datetime.now()
+        self.matches = []
+        self.size = 0
+
+    def details(self):
+        print('Start', self.sTime, 'End', self.eTime, 'Matches', self.size)
+
+    def addMatch(self, match):
+        self.matches.append(match)
+        self.size = len(self.matches)
 
 
-
-
-
-
+    def showMatches(self):
+            for i in self.matches:
+                i.details()
+session = Session()
 match = Match([['Alex','Joe'],['Jt','Spezi']])
-match.setWinner(2)
-match.details()
+match.setWinner(1)
+
+for i in range(0,10):
+    session.addMatch(match)
+
+#session.showMatches()
+session.details()
