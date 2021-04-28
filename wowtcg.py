@@ -1,5 +1,6 @@
 #python script to save match data
 import datetime
+import time
 
 players =['Alex', 'Joe', 'Jt','Spezi']
 
@@ -12,6 +13,8 @@ class Match:
         self.size = len(teams)
         self.teamSize = 0
         self.sTime = datetime.datetime.now()
+        self.eTime = datetime.datetime.now()
+        self.duration = 0
         #check if Teams have equal number of players
         noTeams=False
         for i in teams:
@@ -21,6 +24,7 @@ class Match:
         if noTeams: print("Teamsizes do  not match")
         else: self.teamSize = len(teams[0])
 
+#function to print details of Match
     def details(self):
 
         for i in self.teams:
@@ -29,12 +33,16 @@ class Match:
                 print(p, end = ' ')
             print()
 
-        print('Number of teams', self.size,'Teamsize',self.teamSize, 'StartTime', self.sTime )
+        print('Number of teams', self.size,'Teamsize',self.teamSize, 'StartTime', self.sTime, 'EndTime', self.eTime, "Duration", self.duration )
 
+#function to set Endtime and calculate Duration
+    def setEndTime(self):
+        self.eTime = datetime.datetime.now()
+        self.duration = self.eTime - self.sTime
 
 match = Match([['Alex','Joe'],['Jt','Spezi']])
+
 match.details()
-# print(match.teams)
-# print(match.size)
-# print(match.teams[0])
-# print(match.sTime)
+
+# match1 = Match([['Joe'],['Alex']])
+# match1.details()
