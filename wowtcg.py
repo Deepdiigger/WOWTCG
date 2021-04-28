@@ -3,6 +3,7 @@ import datetime
 import time
 from collections import Counter
 import copy
+import pandas as pd
 
 players =['Alex', 'Joe', 'Jt','Spezi']
 
@@ -17,7 +18,8 @@ class Game:
         self.sTime = datetime.datetime.now()
         self.eTime = datetime.datetime.now()
         self.duration = 0
-        self.winner = 0
+        self.winner = []
+
         #check if Teams have equal number of players
         noTeams=False
         for i in teams:
@@ -47,8 +49,7 @@ class Game:
     def setWinner(self, winningTeam):
 
         try:
-            winner = self.teams[winningTeam]
-            self.winner = winner
+            self.winner = self.teams[winningTeam]
             self.setEndTime()
         except IndexError:
             print('sorry, no Team', winningTeam+1)
@@ -60,7 +61,7 @@ class Match:
         self.eTime = datetime.datetime.now()
         self.games = []
         self.size = 0
-        self.winner = []
+
 
     def details(self):
         print('Start', self.sTime, 'End', self.eTime, 'Matches', self.size)
@@ -76,25 +77,28 @@ class Match:
 
     def endMatch(self):
         self.eTime = datetime.datetime.now()
-        wins = []
-        for i in self.games:
-             wins.append(i.winner)
-
-        print(wins)
-        #print('Winners: ', Counter(wins).values())
-
+        #add winners
+        #for i in self.games:
+            #i.details()
 
 
 
 #start Session add matches, ... testsection
 match = Match()
 game = Game([['Alex','Joe'],['Jt','Spezi']])
+time.sleep(0.1)
 game.setWinner(1)
 match.addGame(game)
+
+time.sleep(0.1)
 game.setWinner(0)
 match.addGame(game)
+
+time.sleep(0.1)
 game.setWinner(1)
 match.addGame(game)
+
+time.sleep(0.1)
 match.endMatch()
 
 #match.showGames()
