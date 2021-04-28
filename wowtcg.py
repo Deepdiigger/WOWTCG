@@ -19,7 +19,7 @@ class Game:
         self.eTime = datetime.datetime.now()
         self.duration = 0
         self.winner = []
-        self.gamerow = pd.DataFrame()
+
 
 
         #set Teamsize and check if Teams have equal number of players
@@ -65,14 +65,30 @@ class Match:
     def __init__(self):
         self.games = pd.DataFrame()
 
+
     #add a game to the Match Dataframe
     def addGame(self, game):
         self.games = self.games.append(game,ignore_index=True)
 
+    def endMatch(self):
+        self.sTime = self.games['sTime'].min()
+        self.eTime = self.games['eTime'].max()
+        self.duration = self.eTime - self.sTime
+        self.wins = pd.DataFrame(self.games['winner'].value_counts())
+
+        self.winner = self.wins['winner'].idxmax()
+
+
+
+        print(self.wins)
+        print(self.winner)
+
+
+
 #start Session add matches, ... testsection
 
 game = Game([['Alex','Joe'],['Jt','Spezi']])
-game1 = game.endGame(1)
+game1 = game.endGame(0)
 time.sleep(0.1)
 game2 = game.endGame(0)
 time.sleep(0.1)
@@ -83,7 +99,7 @@ match.addGame(game1)
 match.addGame(game2)
 match.addGame(game3)
 print(match.games)
-
+match.endMatch()
 
 
 
